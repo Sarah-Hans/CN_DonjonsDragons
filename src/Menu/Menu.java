@@ -101,7 +101,7 @@ public class Menu {
 					System.exit(0);
 				}
 			
-	}	
+	}
 
 	public String getChoixMenu() {
 		return choixMenu;
