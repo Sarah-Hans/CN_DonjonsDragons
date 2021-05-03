@@ -20,6 +20,33 @@ public class Menu {
 	public Menu() {
 		this.clavier = new Scanner(System.in);
 	}
+
+	//menu de départ
+	public void startMenu() {
+		while(Objects.isNull(player)) {
+			System.out.println("Création de ton personnage, tape create");
+			System.out.println("Quitter le jeu, tape exit");
+			choixMenu = clavier.nextLine();
+			if(choixMenu.equals("create")) {
+				player = createPerso();
+
+			} else if(choixMenu.equals("exit")) {
+				System.out.println("Bye bye");
+				System.exit(0);
+			}
+		}
+		System.out.println("Lance la partie, tape start");
+		System.out.println("Quitter le jeu, tape exit");
+		choixMenu = clavier.nextLine();
+		if(choixMenu.equals("start")) {
+			System.out.println("Partie lancée");
+			Jeu partie = new Jeu(player);
+			partie.startGame();
+		} else if(choixMenu.equals("exit")) {
+			System.out.println("Bye bye");
+			System.exit(0);
+		}
+	}
 	
 	
 	//création du personnage
@@ -78,35 +105,6 @@ public class Menu {
 			name = clavier.nextLine();
 			System.out.println(player1);
 		}
-	}
-	
-	//menu de départ
-		public void startMenu() {
-			while(Objects.isNull(player)) {
-				System.out.println(player);
-				System.out.println("Création de ton personnage, tape create");
-				System.out.println("Quitter le jeu, tape exit");
-				choixMenu = clavier.nextLine();
-				if(choixMenu.equals("create")) {
-					player = createPerso();
-
-				} else if(choixMenu.equals("exit")) {
-					System.out.println("Bye bye");
-					System.exit(0);
-				}
-			}
-			System.out.println("Lance la parte, tape start");
-			System.out.println("Quitter le jeu, tape exit");
-			if(choixMenu.equals("start")) {
-				System.out.println("Partie lancée");
-				Jeu partie = new Jeu(player);
-				partie.startGame();
-			} else if(choixMenu.equals("exit")) {
-				System.out.println("Bye bye");
-				System.exit(0);
-			}
-					
-			
 	}
 
 	public String getChoixMenu() {
