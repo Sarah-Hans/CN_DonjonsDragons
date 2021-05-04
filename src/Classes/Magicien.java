@@ -1,6 +1,6 @@
 package Classes;
 
-public class Magicien {
+public class Magicien extends Personnage {
 
 	private String name;
 	private int life;

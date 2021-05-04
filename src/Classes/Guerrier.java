@@ -1,13 +1,8 @@
 package Classes;
 
 
-public class Guerrier {
-	
-	private String name;
-	private int life;
-	private int attack;
-	//private Arme arme = new Arme(Arme.name, Arme.atkLvl);
-	
+public class Guerrier extends Personnage {
+
 	public Guerrier() {
 		name = null;
 		life = 5;
@@ -19,14 +14,12 @@ public class Guerrier {
 		life = 5;
 		attack = 5;
 	}
-	
+
 	public Guerrier(String name, int life, int attack) {
 		this.name = name;
 		this.life = life;
 		this.attack = attack;
 	}
-	
-	
 
 	public String getName() {
 		return name;

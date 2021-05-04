@@ -2,6 +2,7 @@ package Menu;
 
 import Classes.Guerrier;
 import Classes.Magicien;
+import Classes.Personnage;
 import Game.Jeu;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class Menu {
 	private String name;
 	private String choixInfo;
 	private Scanner clavier;
-	private Object player;
+	private Personnage player;
 	
 	//constructeur
 	public Menu() {
@@ -28,7 +29,7 @@ public class Menu {
 			System.out.println("Quitter le jeu, tape exit");
 			choixMenu = clavier.nextLine();
 			if(choixMenu.equals("create")) {
-				player = createPerso();
+				player = (Personnage) createPerso();
 
 			} else if(choixMenu.equals("exit")) {
 				System.out.println("Bye bye");
@@ -67,16 +68,16 @@ public class Menu {
 	public Guerrier createGuerrier() {
 		System.out.print("Entrez un nom pour votre guerrier :");
 		name = clavier.nextLine();
-		Guerrier player1 = new Guerrier(name);
-		persoMenuGuerrier(player1);
-		return player1;
+		Personnage player1 = new Guerrier(name);
+		persoMenuGuerrier((Guerrier) player1);
+		return (Guerrier) player1;
 	}
 	public Magicien createMagicien() {
 		System.out.print("Entrez un nom pour votre magicien :");
 		name = clavier.nextLine();
-		Magicien player1 = new Magicien(name);
-		persoMenuMagicien(player1);
-		return player1;
+		Personnage player1 = new Magicien(name);
+		persoMenuMagicien((Magicien) player1);
+		return (Magicien) player1;
 	}
 
 	//menu Guerrier

@@ -3,6 +3,7 @@ package Game;
 import Menu.Menu;
 import Classes.Guerrier;
 import Classes.Magicien;
+import Classes.Personnage;
 import Game.De;
 import java.util.Scanner;
 
@@ -16,11 +17,8 @@ public class Jeu {
     private int depassement;
 
     //constructeur
-    public Jeu(Object player) {
-        if(player instanceof Guerrier) {
-            Guerrier guerrier = (Guerrier) player;
-            player1Name = guerrier.getName();
-        }
+    public Jeu(Personnage player) {
+        player1Name = player.getName();
         casePlayer1 = 1;
         plateauJeu = new int [64];
         this.clavier = new Scanner(System.in);
