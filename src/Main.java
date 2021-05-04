@@ -1,3 +1,4 @@
+import Exceptions.PersonnageHorsPlateauException;
 import Menu.Menu;
 import Game.Jeu;
 
