@@ -3,6 +3,7 @@ package Menu;
 import Classes.Guerrier;
 import Classes.Magicien;
 import Classes.Personnage;
+import Exceptions.PersonnageHorsPlateauException;
 import Game.Jeu;
 import java.util.Objects;
 
@@ -42,7 +43,11 @@ public class Menu {
 		if(choixMenu.equals("start")) {
 			System.out.println("Partie lancée");
 			Jeu partie = new Jeu(player);
-			partie.startGame();
+			try {
+				partie.startGame();
+			} catch (PersonnageHorsPlateauException e) {
+				e.printStackTrace();
+			}
 		} else if(choixMenu.equals("exit")) {
 			System.out.println("Bye bye");
 			System.exit(0);
