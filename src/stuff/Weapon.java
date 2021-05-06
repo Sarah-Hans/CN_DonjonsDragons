@@ -2,14 +2,16 @@ package stuff;
 
 import game.Square;
 
-public class Weapon extends Square {
+public abstract class Weapon extends Square {
 
-	private String name;
-	private int atkLvl;
-	
-	public Weapon(String name, int atkLvl) {
+	protected String name;
+	protected int atkLvl;
+
+	public Weapon() {
+		name = null;
+	}
+	public Weapon(String name) {
 		this.name = name;
-		this.atkLvl = atkLvl;
 	}
 
 	public String getName() {

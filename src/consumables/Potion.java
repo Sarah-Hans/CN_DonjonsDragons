@@ -2,15 +2,13 @@ package consumables;
 
 import game.Square;
 
-public class Potion extends Square {
-    private int addLife;
-    private String namePotion;
+public abstract class Potion extends Square {
+    protected int addLife;
+    protected String name;
 
-    public Potion(int addLife) {
-        this.addLife = addLife;
-        namePotion = "Potion de vie";
+    public Potion() {
+        name = null;
     }
-
     public int getAddLife() {
         return addLife;
     }
@@ -19,11 +17,19 @@ public class Potion extends Square {
         this.addLife = addLife;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Potion{" +
                 "addLife=" + addLife +
-                ", namePotion='" + namePotion + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

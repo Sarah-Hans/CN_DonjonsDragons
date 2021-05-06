@@ -2,9 +2,14 @@ package stuff;
 
 import game.Square;
 
-public class Spell extends Square {
+public abstract class Spell extends Square {
 
-    private String name;
+    protected String name;
+    protected int atkLvl;
+
+    public Spell() {
+        name = null;
+    }
 
     public Spell(String name) {
         this.name = name;

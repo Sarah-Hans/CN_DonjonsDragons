@@ -11,7 +11,7 @@ public class Dice {
 
     public Dice() {
         min = 1;
-        max = 1;
+        max = 6;
         r = new Random();
         resultatDe = r.nextInt(max - min + 1) + min;
     }
