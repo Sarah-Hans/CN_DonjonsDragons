@@ -1,11 +1,13 @@
-package Equipement;
+package stuff;
 
-public class Arme {
+import game.Square;
+
+public class Weapon extends Square {
 
 	private String name;
 	private int atkLvl;
 	
-	public Arme(String name, int atkLvl) {
+	public Weapon(String name, int atkLvl) {
 		this.name = name;
 		this.atkLvl = atkLvl;
 	}
@@ -28,7 +30,7 @@ public class Arme {
 
 	@Override
 	public String toString() {
-		return "Arme [name=" + name + ", atkLvl=" + atkLvl + "]";
+		return "Weapon [name=" + name + ", atkLvl=" + atkLvl + "]";
 	}
 	
 

@@ -1,17 +1,17 @@
-package Game;
+package game;
 
 import java.util.Random;
 
-public class De {
+public class Dice {
 
     private Random r;
     private int resultatDe;
     private int min;
     private int max;
 
-    public De() {
+    public Dice() {
         min = 1;
-        max = 6;
+        max = 1;
         r = new Random();
         resultatDe = r.nextInt(max - min + 1) + min;
     }
@@ -50,5 +50,15 @@ public class De {
 
     public void setMax(int max) {
         this.max = max;
+    }
+
+    @Override
+    public String toString() {
+        return "Dice{" +
+                "r=" + r +
+                ", resultatDe=" + resultatDe +
+                ", min=" + min +
+                ", max=" + max +
+                '}';
     }
 }

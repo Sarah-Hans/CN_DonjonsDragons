@@ -1,30 +1,26 @@
-package Classes;
+package characters;
 
-public class Magicien extends Personnage {
+import characters.Character;
 
-	private String name;
-	private int life;
-	private int attack;
-	
-	public Magicien() {
+public class Warrior extends Character {
+
+	public Warrior() {
 		name = null;
-		life = 3;
-		attack = 8;
+		life = 5;
+		attack = 5;
 	}
 	
-	public Magicien(String name) {
+	public Warrior(String name) {
 		this.name = name;
-		life = 3;
-		attack = 8;
+		life = 5;
+		attack = 5;
 	}
-	
-	public Magicien(String name, int life, int attack) {
+
+	public Warrior(String name, int life, int attack) {
 		this.name = name;
 		this.life = life;
 		this.attack = attack;
 	}
-	
-	
 
 	public String getName() {
 		return name;
@@ -52,7 +48,8 @@ public class Magicien extends Personnage {
 
 	@Override
 	public String toString() {
-		return "Votre Magicien : [name=" + name + ", life=" + life + ", attack=" + attack + "]";
+		return "Votre Guerrier :[name=" + name + ", life=" + life + ", attack=" + attack + "]";
 	}
+	
 
 }

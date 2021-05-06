@@ -1,6 +1,4 @@
-import Exceptions.PersonnageHorsPlateauException;
-import Menu.Menu;
-import Game.Jeu;
+import menu.Menu;
 
 public class Main {
 

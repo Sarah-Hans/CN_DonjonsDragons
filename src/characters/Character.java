@@ -1,19 +1,21 @@
-package Classes;
+package characters;
 
-public abstract class Personnage {
+import game.Square;
+
+public abstract class Character extends Square {
     protected String name;
     protected int life;
     protected int attack;
 
-    public Personnage() {
+    public Character() {
         name = null;
     }
 
-    public Personnage(String name) {
+    public Character(String name) {
         this.name = name;
     }
 
-    public Personnage(String name, int life, int attack) {
+    public Character(String name, int life, int attack) {
         this.name = name;
         this.life = life;
         this.attack = attack;
