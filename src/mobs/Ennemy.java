@@ -1,6 +1,7 @@
 package mobs;
 
 import game.Square;
+import game.Game;
 
 public abstract class Ennemy extends Square {
 
@@ -15,6 +16,7 @@ public abstract class Ennemy extends Square {
     public Ennemy(String name) {
         this.name = name;
     }
+
 
     public String getName() {
         return name;
