@@ -15,4 +15,19 @@ public abstract class Spell extends Square {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAtkLvl() {
+        return atkLvl;
+    }
+
+    public void setAtkLvl(int atkLvl) {
+        this.atkLvl = atkLvl;
+    }
 }

@@ -57,7 +57,6 @@ public class Game {
         System.out.println("Tu as obtenu : " + chiffreDe);
         board.set(casePlayer1, contentSquare);
         casePlayer1 = casePlayer1 + chiffreDe;
-        System.out.println(casePlayer1+1);
         try {
             if (casePlayer1 > 11) {
                 throw new PersonnageHorsPlateauException("Vous avez dépassé le plateau !");
@@ -68,7 +67,6 @@ public class Game {
             contentSquare = board.get(casePlayer1);
             whatHappend = contentSquare.interaction(player1);
             board.set(casePlayer1, player1);
-            System.out.println(board);
             System.out.println(player1Name + " tu es sur la case " + (casePlayer1+1) + ". Cette case contenait "+ contentSquare);
             System.out.println(whatHappend);
         } catch (PersonnageHorsPlateauException e) {
