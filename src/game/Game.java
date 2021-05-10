@@ -21,7 +21,7 @@ public class Game {
 
     //constructeur : intitialiser les attributs
     public Game(Character player) {
-        gameBoard = new Board(board);
+        gameBoard = new Board(null);
         board = gameBoard.getGameBoard();
         player1 = player;
         player1Name = player.getName();
@@ -36,15 +36,15 @@ public class Game {
         String whatHappend;
         System.out.println("C'est parti !");
         board = gameBoard.getGameBoard();
-        contentSquare = board.get(0);
+        contentSquare = board.get(1);
         whatHappend = contentSquare.interaction(player1);
-        board.set(0, player1);
+        board.set(1, player1);
         casePlayer1 = board.indexOf(player1);
-        System.out.println(player1Name + " tu es sur la case " + (casePlayer1 +1) + ". Cette case contenait "+ contentSquare);
+        System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contenait "+ contentSquare);
         System.out.println(whatHappend);
         System.out.println("Lance le dé pour jouer... (tape jouer)");
         choix = clavier.nextLine();
-        while (choix.equals("jouer") && casePlayer1 < 12) {
+        while (choix.equals("jouer") && casePlayer1 < 65) {
            newTurn();
         }
     }
@@ -58,28 +58,28 @@ public class Game {
         board.set(casePlayer1, contentSquare);
         casePlayer1 = casePlayer1 + chiffreDe;
         try {
-            if (casePlayer1 > 11) {
+            if (casePlayer1 > 64) {
                 throw new PersonnageHorsPlateauException("Vous avez dépassé le plateau !");
             }
-            if (casePlayer1 == 11) {
+            if (casePlayer1 == 64) {
                 win();
             }
             contentSquare = board.get(casePlayer1);
             whatHappend = contentSquare.interaction(player1);
             board.set(casePlayer1, player1);
-            System.out.println(player1Name + " tu es sur la case " + (casePlayer1+1) + ". Cette case contenait "+ contentSquare);
+            System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contenait "+ contentSquare);
             System.out.println(whatHappend);
         } catch (PersonnageHorsPlateauException e) {
             System.out.println(e.getMessage());
-            exceed = casePlayer1 - 11;
-            casePlayer1 = 11 - exceed;
-            if (casePlayer1 == 11) {
+            exceed = casePlayer1 - 64;
+            casePlayer1 = 64 - exceed;
+            if (casePlayer1 == 64) {
                 win();
             }
             contentSquare = board.get(casePlayer1);
             whatHappend = contentSquare.interaction(player1);
             board.set(casePlayer1, player1);
-            System.out.println(player1Name + " tu es sur la case " + (casePlayer1+1) + ". Cette case contenait "+ contentSquare);
+            System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contenait "+ contentSquare);
             System.out.println(whatHappend);
 
         }
@@ -87,7 +87,7 @@ public class Game {
         choix = clavier.nextLine();
     }
     public void win() {
-        System.out.println("Case 12. Bravo, tu as gagné!");
+        System.out.println("Case 64. Bravo, tu as gagné!");
         System.out.println("1 - Recommencer une partie");
         System.out.println("2 - Quitter le jeu");
         choix = clavier.nextLine();

@@ -4,8 +4,6 @@ import characters.Warrior;
 import characters.Wizzard;
 import characters.Character;
 import game.Game;
-import game.Board;
-import java.util.Objects;
 
 import java.util.Scanner;
 
@@ -30,7 +28,6 @@ public class Menu {
 			choixMenu = clavier.nextLine();
 			if(choixMenu.equals("create")) {
 				player = createPerso();
-
 			} else if(choixMenu.equals("exit")) {
 				System.out.println("Bye bye");
 				System.exit(0);

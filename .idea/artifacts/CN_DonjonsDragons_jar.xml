@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CN_DonjonsDragons:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/CN_DonjonsDragons_jar</output-path>
+    <root id="archive" name="CN_DonjonsDragons.jar">
+      <element id="module-output" name="CN_DonjonsDragons" />
+    </root>
+  </artifact>
+</component>
