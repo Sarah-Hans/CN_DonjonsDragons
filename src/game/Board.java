@@ -24,19 +24,19 @@ public class Board {
             this.gameBoard.add(new EmptySquare());
 
             if(i==45 || i==52 || i==56 || i==62) {
-                this.gameBoard.set(i, new Dragon("Dragon of Fire"));
+                this.gameBoard.set(i, new Dragon());
             }
             if(i==10 || i==20 || i==25 || i==32 || i==35 || i==36 || i==37 || i==40 || i==44 || i==47) {
-                this.gameBoard.set(i, new Sorcerer("Dark Sorcerer"));
+                this.gameBoard.set(i, new Sorcerer());
             }
             if(i==3 || i==6 || i==9 || i==12 || i==15 || i==18 || i==21 || i==24 || i==27 || i==30) {
-                this.gameBoard.set(i, new Goblin("Dark Goblin"));
+                this.gameBoard.set(i, new Goblin());
             }
             if(i==2 || i==11 || i==5 || i==22 || i==38) {
                 this.gameBoard.set(i, new Mace());
             }
             if(i==19 || i==26 || i==42 || i==53) {
-                this.gameBoard.set(i, new Sword("Fire Sword"));
+                this.gameBoard.set(i, new Sword());
             }
             if(i==1 || i==4 || i==8 || i==17 || i==23) {
                 this.gameBoard.set(i, new Lightning());

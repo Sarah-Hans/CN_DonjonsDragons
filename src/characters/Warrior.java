@@ -7,25 +7,24 @@ public class Warrior extends Character {
 
 	private Weapon weapon;
 
-	public Warrior() {
-		name = null;
-		life = 5;
-		attack = 5;
-		weapon = null;
-	}
-	
 	public Warrior(String name) {
-		this.name = name;
-		life = 5;
-		attack = 5;
+		super(name, 5, 5);
 		weapon = null;
 	}
 
-	public Warrior(String name, int life, int attack, Weapon weapon) {
-		this.name = name;
-		this.life = life;
-		this.attack = attack;
-		this.weapon = weapon;
+	@Override
+	public void setLife(int life) {
+		super.setLife(life);
+		if (super.getLife() > 10) {
+			super.setLife(10);
+		}
+	}
+	@Override
+	public void setAttack(int attack) {
+		super.setAttack(attack);
+		if (super.getAttack() > 10) {
+			super.setAttack(10);
+		}
 	}
 
 	@Override

@@ -1,13 +1,19 @@
 package consumables;
 
+import characters.Character;
 import game.Square;
 
 public abstract class Potion extends Square {
     protected int addLife;
     protected String name;
 
-    public Potion() {
-        name = null;
+    public Potion(String name, int addLife) {
+        this.name = name;
+        this.addLife = addLife;
+    }
+
+    public void action(Character player) {
+        player.setLife(player.getLife() + addLife);
     }
     public int getAddLife() {
         return addLife;

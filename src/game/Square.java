@@ -1,6 +1,5 @@
 package game;
 
-import characters.*;
 import characters.Character;
 import consumables.*;
 import mobs.*;
@@ -8,116 +7,35 @@ import stuff.*;
 
 import java.util.Scanner;
 
-
 public abstract class Square {
 
     // Méthode qui va gérer les interactions du player avec le contenu des cases du jeu
     public String interaction(Character player1) {
         String message = null;
-        int addLife;
-        int addAtk;
         Scanner clavier = new Scanner(System.in);
         String choix;
         if (this instanceof EmptySquare) {
-            message = "La case est vide, il ne se passe rien";
-        } else if (this instanceof MediumLifePotion) {
-            addLife = ((MediumLifePotion) this).getAddLife();
-            player1.setLife(player1.getLife() + addLife);
-            if ((player1 instanceof Warrior) && (player1.getLife() > 10)) {
-                player1.setLife(10);
-            }
-            if ((player1 instanceof Wizzard) && (player1.getLife() > 6)) {
-                player1.setLife(6);
-            }
-            message = "Tu récupères une potion de vie medium et tu gagnes 2 points de vie. Ta vie est maintenant de : "+player1.getLife();
-        } else if (this instanceof BigLifePotion) {
-            addLife = ((BigLifePotion) this).getAddLife();
-            player1.setLife(player1.getLife() + addLife);
-            if ((player1 instanceof Warrior) && (player1.getLife() > 10)) {
-                player1.setLife(10);
-            }
-            if ((player1 instanceof Wizzard) && (player1.getLife() > 6)) {
-                player1.setLife(6);
-            }
-            message = "Tu récupères une grosse potion de vie et tu gagnes 5 points de vie. Ta vie est maintenant de : "+player1.getLife();
-        } else if (this instanceof Dragon) {
-            System.out.println("Tu vas devoir affronter un Dragon");
+            message = "Il ne se passe rien ici, tu peux continuer ton chemin.";
+        } else if (this instanceof MediumLifePotion || this instanceof BigLifePotion) {
+            ((Potion) this).action(player1);
+            message = "Tu récupères "+((Potion) this).getName()+" et tu gagnes "+((Potion) this).getAddLife()+" points de vie. Ta vie est maintenant de : "+player1.getLife();
+        } else if (this instanceof Dragon || this instanceof Goblin || this instanceof Sorcerer) {
+            System.out.println("Tu vas devoir affronter "+((Ennemy) this).getName());
             System.out.println("Tape go pour engager le combat !");
             choix = clavier.nextLine();
             if (choix.equals("go")) {
-                player1.goFight(player1, (Dragon) this);
-                if (((Dragon) this).getLife() > 0) {
-                    ((Dragon) this).atkMob(player1, ((Dragon) this));
+                player1.goFight(player1, (Ennemy) this);
+                if (((Ennemy) this).getLife() > 0) {
+                    ((Ennemy) this).atkMob(player1, ((Ennemy) this));
                 }
             }
             message = "Etat de ton personnage : "+player1;
-
-        } else if (this instanceof Goblin) {
-            System.out.println("Tu vas devoir affronter un Gobelin");
-            System.out.println("Tape go pour engager le combat !");
-            choix = clavier.nextLine();
-            if (choix.equals("go")) {
-                player1.goFight(player1, (Goblin) this);
-                if (((Goblin) this).getLife() > 0) {
-                    ((Goblin) this).atkMob(player1, ((Goblin) this));
-                }
-            }
-            message = "Etat de ton personnage : "+player1;
-        } else if (this instanceof Sorcerer) {
-            System.out.println("Tu vas devoir affronter un Sorcier");
-            System.out.println("Tape go pour engager le combat !");
-            choix = clavier.nextLine();
-            if (choix.equals("go")) {
-                player1.goFight(player1, (Sorcerer) this);
-                if (((Sorcerer) this).getLife() > 0) {
-                    ((Sorcerer) this).atkMob(player1, ((Sorcerer) this));
-                }
-            }
-            message = "Etat de ton personnage : "+player1;
-        } else if (this instanceof Fireball) {
-            if (player1 instanceof Warrior) {
-                message = "Il y a un sort mais tu n'as pas le droit de l'équiper.";
-            } else if (player1 instanceof Wizzard) {
-                addAtk = ((Fireball) this).getAtkLvl();
-                player1.setAttack(player1.getAttack()+ addAtk);
-                if(player1.getAttack() > 15) {
-                    player1.setAttack(15);
-                }
-                message = "Tu récupères le sort Fireball et tu augmentes ton attaque de 7 points. Ton attaque est maintenant de : "+player1.getAttack();
-            }
-        } else if (this instanceof Lightning) {
-            if (player1 instanceof Warrior) {
-                message = "Il y a un sort mais tu n'as pas le droit de l'équiper.";
-            } else if (player1 instanceof Wizzard) {
-                addAtk = ((Lightning) this).getAtkLvl();
-                player1.setAttack(player1.getAttack()+ addAtk);
-                if(player1.getAttack() > 15) {
-                    player1.setAttack(15);
-                }
-                message = "Tu récupères le sort Lightning et tu augmentes ton attaque de 2 points. Ton attaque est maintenant de : "+player1.getAttack();
-            }
-        } else if (this instanceof Mace) {
-            if (player1 instanceof Warrior) {
-                addAtk = ((Mace) this).getAtkLvl();
-                player1.setAttack(player1.getAttack()+ addAtk);
-                if(player1.getAttack() > 10) {
-                    player1.setAttack(10);
-                }
-                message = "Tu récupère une masse et tu augmentes ton attaque de 3 points. Ton attaque est maintenant de : "+player1.getAttack();
-            } else if (player1 instanceof Wizzard) {
-                message = "Il y a une masse mais tu n'as pas le droit de l'équiper.";
-            }
-        } else if (this instanceof Sword) {
-            if (player1 instanceof Warrior) {
-                addAtk = ((Sword) this).getAtkLvl();
-                player1.setAttack(player1.getAttack()+ addAtk);
-                if(player1.getAttack() > 10) {
-                    player1.setAttack(10);
-                }
-                message = "Tu récupères une épée et tu augmentes ton attaque de 5 points. Ton attaque est maintenant de : "+player1.getAttack();
-            } else if (player1 instanceof Wizzard) {
-                message = "Il y a une épée mais tu n'as pas le droit de l'équiper.";
-            }
+        } else if (this instanceof Fireball || this instanceof Lightning) {
+            ((Spell) this).action(player1);
+            message = "Tu récupères le sort "+ ((Spell) this).getName()+" et tu augmentes ton attaque de "+ ((Spell) this).getAtkLvl()+" points. Ton attaque est maintenant de : "+player1.getAttack();
+        } else if (this instanceof Mace || this instanceof Sword) {
+            ((Weapon) this).action(player1);
+            message = "Tu récupère l'arme "+((Weapon) this).getName()+" et tu augmentes ton attaque de "+ ((Weapon) this).getAtkLvl()+" points. Ton attaque est maintenant de : "+player1.getAttack();
         }
         return message;
     }

@@ -2,12 +2,7 @@ package stuff;
 
 public class Mace extends Weapon {
     public Mace() {
-        name = null;
-        atkLvl = 3;
-    }
-    public Mace(String name) {
-        this.name = name;
-        atkLvl = 3;
+        super("Powerfull Mace", 3);
     }
 
     @Override

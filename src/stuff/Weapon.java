@@ -1,5 +1,7 @@
 package stuff;
 
+import characters.Character;
+import characters.Wizzard;
 import game.Square;
 
 public abstract class Weapon extends Square {
@@ -7,11 +9,17 @@ public abstract class Weapon extends Square {
 	protected String name;
 	protected int atkLvl;
 
-	public Weapon() {
-		name = null;
-	}
-	public Weapon(String name) {
+	public Weapon(String name, int atkLvl) {
 		this.name = name;
+		this.atkLvl = atkLvl;
+	}
+
+	public void action(Character player) {
+		if (player instanceof Wizzard) {
+			System.out.println("Il y a une masse mais tu n'as pas le droit de l'équiper.");
+		} else {
+			player.setAttack(player.getAttack()+ atkLvl);
+		}
 	}
 
 	public String getName() {

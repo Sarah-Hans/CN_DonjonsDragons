@@ -6,29 +6,10 @@ public class Wizzard extends Character {
 
 	private Spell spell;
 	
-	public Wizzard() {
-		name = null;
-		life = 3;
-		attack = 8;
-		spell = null;
-	}
-	
 	public Wizzard(String name) {
-		this.name = name;
-		life = 3;
-		attack = 8;
+		super(name, 3, 8);
 		spell = null;
 	}
-	
-	public Wizzard(String name, int life, int attack, Spell spell) {
-		this.name = name;
-		this.life = life;
-		this.attack = attack;
-		this.spell = spell;
-	}
-	
-	
-
 	public String getName() {
 		return name;
 	}
@@ -41,16 +22,24 @@ public class Wizzard extends Character {
 		return life;
 	}
 
+	@Override
 	public void setLife(int life) {
-		this.life = life;
+		super.setLife(life);
+		if (super.getLife() > 6) {
+			super.setLife(6);
+		}
 	}
 
 	public int getAttack() {
 		return attack;
 	}
 
+	@Override
 	public void setAttack(int attack) {
-		this.attack = attack;
+		super.setAttack(attack);
+		if (super.getAttack() > 15) {
+			super.setAttack(15);
+		}
 	}
 
 	@Override

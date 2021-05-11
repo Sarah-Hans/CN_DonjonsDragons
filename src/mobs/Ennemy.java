@@ -9,12 +9,10 @@ public abstract class Ennemy extends Square {
     protected int lvlatk;
     protected int life;
 
-    public Ennemy() {
-        name = null;
-    }
-
-    public Ennemy(String name) {
+    public Ennemy(String name, int lvlatk, int life) {
         this.name = name;
+        this.lvlatk = lvlatk;
+        this.life = life;
     }
 
     public int atkMob(Character player, Ennemy mob) {

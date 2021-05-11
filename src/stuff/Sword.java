@@ -1,9 +1,8 @@
 package stuff;
 
 public class Sword extends Weapon {
-    public Sword(String name) {
-        this.name = name;
-        atkLvl = 5;
+    public Sword() {
+        super("Fire Sword", 5);
     }
 
     @Override

@@ -8,13 +8,6 @@ public abstract class Character extends Square {
     protected int life;
     protected int attack;
 
-    public Character() {
-        name = null;
-    }
-
-    public Character(String name) {
-        this.name = name;
-    }
 
     public Character(String name, int life, int attack) {
         this.name = name;
@@ -22,7 +15,7 @@ public abstract class Character extends Square {
         this.attack = attack;
     }
 
-    public int goFight(Character player, Ennemy mob) {
+    public void goFight(Character player, Ennemy mob) {
         System.out.println("Le combat commence ! Tu frappes l'ennemi...");
         mob.setLife(mob.getLife()- player.getAttack());
         if (mob.getLife() <= 0){
@@ -30,7 +23,6 @@ public abstract class Character extends Square {
         } else {
             System.out.println("Tu as frappé "+mob.getName()+", il lui reste "+ mob.getLife()+" points de vie.");
         }
-        return player.getLife();
     }
 
     public String getName() {

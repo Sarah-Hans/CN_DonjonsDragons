@@ -50,7 +50,7 @@ public class Game {
     }
     //nouveau lancé de dé
     public void newTurn() {
-        String whatHappend;
+
         int exceed;
         Dice lanceDe = new Dice();
         chiffreDe = lanceDe.lancerDe();
@@ -61,29 +61,27 @@ public class Game {
             if (casePlayer1 > 64) {
                 throw new PersonnageHorsPlateauException("Vous avez dépassé le plateau !");
             }
-            if (casePlayer1 == 64) {
-                win();
-            }
-            contentSquare = board.get(casePlayer1);
-            System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contient "+ contentSquare);
-            whatHappend = contentSquare.interaction(player1);
-            board.set(casePlayer1, player1);
-            System.out.println(whatHappend);
+            lancementInteraction();
         } catch (PersonnageHorsPlateauException e) {
             System.out.println(e.getMessage());
             exceed = casePlayer1 - 64;
             casePlayer1 = 64 - exceed;
-            if (casePlayer1 == 64) {
-                win();
-            }
-            contentSquare = board.get(casePlayer1);
-            System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contient "+ contentSquare);
-            whatHappend = contentSquare.interaction(player1);
-            board.set(casePlayer1, player1);
-            System.out.println(whatHappend);
+
+            lancementInteraction();
         }
         System.out.println("Lance le dé pour jouer... (tape jouer)");
         choix = clavier.nextLine();
+    }
+    public void lancementInteraction() {
+        String whatHappend;
+        if (casePlayer1 == 64) {
+            win();
+        }
+        contentSquare = board.get(casePlayer1);
+        System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contient "+ contentSquare);
+        whatHappend = contentSquare.interaction(player1);
+        board.set(casePlayer1, player1);
+        System.out.println(whatHappend);
     }
     public void win() {
         System.out.println("Case 64. Bravo, tu as gagné!");

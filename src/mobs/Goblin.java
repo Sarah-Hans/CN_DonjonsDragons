@@ -2,14 +2,7 @@ package mobs;
 
 public class Goblin extends Ennemy {
     public Goblin() {
-        name = null;
-        lvlatk = 1;
-        life = 6;
-    }
-    public Goblin(String name) {
-        this.name = name;
-        lvlatk = 1;
-        life = 6;
+        super("Dark Goblin", 1, 6);
     }
 
     @Override
