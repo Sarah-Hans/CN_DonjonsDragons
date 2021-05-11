@@ -37,10 +37,10 @@ public class Game {
         System.out.println("C'est parti !");
         board = gameBoard.getGameBoard();
         contentSquare = board.get(1);
-        whatHappend = contentSquare.interaction(player1);
         board.set(1, player1);
         casePlayer1 = board.indexOf(player1);
-        System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contenait "+ contentSquare);
+        System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contient "+ contentSquare);
+        whatHappend = contentSquare.interaction(player1);
         System.out.println(whatHappend);
         System.out.println("Lance le dé pour jouer... (tape jouer)");
         choix = clavier.nextLine();
@@ -65,9 +65,9 @@ public class Game {
                 win();
             }
             contentSquare = board.get(casePlayer1);
+            System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contient "+ contentSquare);
             whatHappend = contentSquare.interaction(player1);
             board.set(casePlayer1, player1);
-            System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contenait "+ contentSquare);
             System.out.println(whatHappend);
         } catch (PersonnageHorsPlateauException e) {
             System.out.println(e.getMessage());
@@ -77,11 +77,10 @@ public class Game {
                 win();
             }
             contentSquare = board.get(casePlayer1);
+            System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contient "+ contentSquare);
             whatHappend = contentSquare.interaction(player1);
             board.set(casePlayer1, player1);
-            System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contenait "+ contentSquare);
             System.out.println(whatHappend);
-
         }
         System.out.println("Lance le dé pour jouer... (tape jouer)");
         choix = clavier.nextLine();

@@ -1,18 +1,12 @@
 package game;
 
-import characters.Warrior;
+import characters.*;
 import characters.Character;
-import characters.Wizzard;
-import consumables.BigLifePotion;
-import consumables.MediumLifePotion;
-import consumables.Potion;
-import mobs.Dragon;
-import mobs.Goblin;
-import mobs.Sorcerer;
-import stuff.Fireball;
-import stuff.Lightning;
-import stuff.Mace;
-import stuff.Sword;
+import consumables.*;
+import mobs.*;
+import stuff.*;
+
+import java.util.Scanner;
 
 
 public abstract class Square {
@@ -22,6 +16,8 @@ public abstract class Square {
         String message = null;
         int addLife;
         int addAtk;
+        Scanner clavier = new Scanner(System.in);
+        String choix;
         if (this instanceof EmptySquare) {
             message = "La case est vide, il ne se passe rien";
         } else if (this instanceof MediumLifePotion) {
@@ -45,11 +41,39 @@ public abstract class Square {
             }
             message = "Tu récupères une grosse potion de vie et tu gagnes 5 points de vie. Ta vie est maintenant de : "+player1.getLife();
         } else if (this instanceof Dragon) {
-            message = "Tu vas devoir affronter un dragon !";
+            System.out.println("Tu vas devoir affronter un Dragon");
+            System.out.println("Tape go pour engager le combat !");
+            choix = clavier.nextLine();
+            if (choix.equals("go")) {
+                player1.goFight(player1, (Dragon) this);
+                if (((Dragon) this).getLife() > 0) {
+                    ((Dragon) this).atkMob(player1, ((Dragon) this));
+                }
+            }
+            message = "Etat de ton personnage : "+player1;
+
         } else if (this instanceof Goblin) {
-            message = "Tu vas devoir affronter un gobelin !";
+            System.out.println("Tu vas devoir affronter un Gobelin");
+            System.out.println("Tape go pour engager le combat !");
+            choix = clavier.nextLine();
+            if (choix.equals("go")) {
+                player1.goFight(player1, (Goblin) this);
+                if (((Goblin) this).getLife() > 0) {
+                    ((Goblin) this).atkMob(player1, ((Goblin) this));
+                }
+            }
+            message = "Etat de ton personnage : "+player1;
         } else if (this instanceof Sorcerer) {
-            message = "Tu vas devoir affronter un sorcier !";
+            System.out.println("Tu vas devoir affronter un Sorcier");
+            System.out.println("Tape go pour engager le combat !");
+            choix = clavier.nextLine();
+            if (choix.equals("go")) {
+                player1.goFight(player1, (Sorcerer) this);
+                if (((Sorcerer) this).getLife() > 0) {
+                    ((Sorcerer) this).atkMob(player1, ((Sorcerer) this));
+                }
+            }
+            message = "Etat de ton personnage : "+player1;
         } else if (this instanceof Fireball) {
             if (player1 instanceof Warrior) {
                 message = "Il y a un sort mais tu n'as pas le droit de l'équiper.";
@@ -90,12 +114,11 @@ public abstract class Square {
                 if(player1.getAttack() > 10) {
                     player1.setAttack(10);
                 }
-                message = "Tu récupère une épée et tu augmentes ton attaque de 5 points. Ton attaque est maintenant de : "+player1.getAttack();
+                message = "Tu récupères une épée et tu augmentes ton attaque de 5 points. Ton attaque est maintenant de : "+player1.getAttack();
             } else if (player1 instanceof Wizzard) {
                 message = "Il y a une épée mais tu n'as pas le droit de l'équiper.";
             }
         }
         return message;
     }
-
 }

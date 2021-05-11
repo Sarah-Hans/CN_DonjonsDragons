@@ -1,7 +1,7 @@
 package mobs;
 
 import game.Square;
-import game.Game;
+import characters.Character;
 
 public abstract class Ennemy extends Square {
 
@@ -17,6 +17,18 @@ public abstract class Ennemy extends Square {
         this.name = name;
     }
 
+    public int atkMob(Character player, Ennemy mob) {
+        System.out.println("L'ennemi te frappe...");
+        player.setLife(player.getLife()- mob.getLvlatk());
+        if (player.getLife() <= 0){
+            System.out.println(mob.getName()+ " t'a tué. Tu as perdu !");
+            System.out.println("Bye bye");
+            System.exit(0);
+        } else {
+            System.out.println("Il te reste "+ player.getLife()+" points de vie. "+mob.getName()+" s'enfuit...");
+        }
+        return mob.getLife();
+    }
 
     public String getName() {
         return name;

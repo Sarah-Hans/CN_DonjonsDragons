@@ -1,6 +1,7 @@
 package characters;
 
-import game.Square;
+import game.*;
+import mobs.*;
 
 public abstract class Character extends Square {
     protected String name;
@@ -19,6 +20,17 @@ public abstract class Character extends Square {
         this.name = name;
         this.life = life;
         this.attack = attack;
+    }
+
+    public int goFight(Character player, Ennemy mob) {
+        System.out.println("Le combat commence ! Tu frappes l'ennemi...");
+        mob.setLife(mob.getLife()- player.getAttack());
+        if (mob.getLife() <= 0){
+            System.out.println("Bravo, tu as terrassé "+ mob.getName());
+        } else {
+            System.out.println("Tu as frappé "+mob.getName()+", il lui reste "+ mob.getLife()+" points de vie.");
+        }
+        return player.getLife();
     }
 
     public String getName() {
