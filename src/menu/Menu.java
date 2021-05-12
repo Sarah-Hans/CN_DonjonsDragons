@@ -1,25 +1,79 @@
 package menu;
 
-import characters.Warrior;
-import characters.Wizzard;
+import characters.*;
 import characters.Character;
-import game.Game;
+import game.*;
 
 import java.util.Scanner;
 
+/**
+* Cette classe gère l'<b>affichage du menu</b>et la <b>création du personnage</b>
+* <p>
+*  La création du personnage nécessite :
+* <ul>
+* <li>une variable de type objet (Character) qui sera généré</li>
+* <li>une variable de type String pour récupérer le nom du personnage</li>
+* <li>une variable de type Scanner pour gérer les entrées clavier de l'utilisateur</li>
+* </ul>
+* Le menu permet de lancer le jeu : instanciation du Game.
+* </p>
+*
+* @see Game
+* @author Sarah-Hans
+*
+ */
+
 public class Menu {
+	/**
+	* L'objet player de type Character qui sera créé
+	* Celui ci n'est pas modifiable
+	* @see Menu#Menu()
+	* @see Menu#getPlayer
+	 */
 	private Character player;
+
+	/**
+	* Le nom du player. Celui-ci est modifiable
+	* @see Menu#Menu()
+	* @see Menu#getName()
+	* @see Menu#setName(String)
+	 */
 	private String name;
+
+	/**
+	* La variable qui va permettre les entrées clavier
+	 */
 	private Scanner clavier;
 	
-	//constructor : tout initialiser
+	/**
+	* Constructeur Menu
+	* <p>
+	* A la construction d'un nouveau menu, l'objet player est vide ainsi que son nom et on instancie l'entrée clavier.
+	* @see Menu#name
+	* @see Menu#player
+	* @see Menu#clavier
+	* </p>
+	 */
 	public Menu() {
 		name = null;
 		player = null;
 		this.clavier = new Scanner(System.in);
 	}
 
-	//menu de départ
+	/**
+	* <b>Menu de départ</b>
+	* <p>
+	* Création d'une variable choixMenu qui récupère l'entrée clavier de l'utilisateur.
+	* Tant que le player n'est pas créé on propose de le créer.
+	* Si l'utilisateur choisi de le créer, on appelle la méthode createPerso(), s'il choisi de quitter le jeu, le programme se ferme.
+	* Dès que le personage est créé, on propose de lancer une partie ou de quitter le jeu
+	* Le lancement d'une partie instancie la classe Game et lance la méthode startGame.
+	* </p>
+	* @see Menu#player
+	* @see Menu#createPerso()
+	* @see Game
+	* @see Game#startGame()
+	 */
 	public void startMenu() {
 		String choixMenu;
 		while(player == null) {
@@ -46,7 +100,19 @@ public class Menu {
 		}
 	}
 	
-	//création du personnage
+	/**
+	* <b>Sous menu de création du personnage</b>
+	* <p>
+	* Création d'une variable choixClasse qui récupère l'entrée clavier de l'utilisateur.
+	* L'utilisateur est invité à choisir la classe de son personnage (guerrier ou magicien)
+	* Lancement des méthodes createGuerrier() et createMagicien() en fonction de son choix.
+	* </p>
+	*
+	* @return le retour de ces deux méthodes
+	*
+	* @see Menu#createGuerrier()
+	* @see Menu#createMagicien()
+	 */
 	public Character createPerso() {
 		String choixClasse;
 		//Création du personnage
@@ -62,6 +128,24 @@ public class Menu {
 				return createMagicien();
 		}
 	}
+
+	/**
+	 * <b>Sous-sous menu de création du personnage de type guerrier</b>
+	 * <p>
+	 * L'utilisateur est invité à définir le nom de son personnage
+	 * Le personnage est ainsi instancié
+	 * La méthode qui affiche le menu de modification du personnage est appelée
+	 * La méthode retourn l'objet player1
+	 * </p>
+	 *
+	 * @return l'objet player1 de type Warrior
+	 *
+	 * @see Menu#name
+	 * @see Character
+	 * @see Warrior
+	 * @see Warrior(String)
+	 * @see Menu#persoMenu(Character)
+	 */
 	public Character createGuerrier() {
 		System.out.print("Entrez un nom pour votre guerrier :");
 		name = clavier.nextLine();
@@ -69,6 +153,24 @@ public class Menu {
 		persoMenu(player1);
 		return player1;
 	}
+
+	/**
+	 * <b>Sous-sous menu de création du personnage de type magicien</b>
+	 * <p>
+	 * L'utilisateur est invité à définir le nom de son personnage
+	 * Le personnage est ainsi instancié
+	 * La méthode qui affiche le menu de modification du personnage est appelée
+	 * La méthode retourn l'objet player1
+	 * </p>
+	 *
+	 * @return l'objet player1 de type Wizzard
+	 *
+	 * @see Menu#name
+	 * @see Character
+	 * @see Wizzard
+	 * @see Wizzard(String)
+	 * @see Menu#persoMenu(Character)
+	 */
 	public Character createMagicien() {
 		System.out.print("Entrez un nom pour votre magicien :");
 		name = clavier.nextLine();
@@ -77,7 +179,19 @@ public class Menu {
 		return player1;
 	}
 
-	//menu Character
+	/**
+	* <b>Sous-menu de modification du personnage</b>
+	* <p>
+	* Ce menu permet à l'utilisateur de modifier le nom de son personnage ou d'afficher les information de son personnage
+	* Une variable choixInfo de type String est créée afin de récupérer l'entrée clavier
+	*
+	* </p>
+	* @param player1
+	* 			le personnage créé de type Character
+	*
+	* @see Menu#player
+	* @see Menu#name
+	 */
 	public void persoMenu(Character player1) {
 		String choixInfo;
 		System.out.println("1 - Affichez les infos de votre personnage");
@@ -91,31 +205,44 @@ public class Menu {
 			System.out.println(player1);
 		}
 	}
-
+	/**
+	 * Retourne le nom du joueur.
+	 *
+	 * @return nom du joueur.
+	 *
+	 * @see Menu#name
+	 */
 	public String getName() {
 		return name;
 	}
 
-	public Scanner getClavier() {
-		return clavier;
-	}
-
+	/**
+	 * Retourne le joueur.
+	 *
+	 * @return l'objet joueur.
+	 *
+	 * @see Menu#player
+	 */
 	public Character getPlayer() {
 		return player;
 	}
 
+	/**
+	 * Met à jour le nom du joueur.
+	 *
+	 * @param name
+	 *            Le nouveau nom du joueur.
+	 *
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setClavier(Scanner clavier) {
-		this.clavier = clavier;
-	}
-
-	public void setPlayer(Character player) {
-		this.player = player;
-	}
-
+	/**
+	 * Méthode qui transforme l'objet menu en String
+	 *
+	 * @return objet Menu
+	 */
 	@Override
 	public String toString() {
 		return "Menu{" +

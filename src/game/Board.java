@@ -1,23 +1,51 @@
 package game;
 
 import java.util.Collections;
-import consumables.MediumLifePotion;
-import consumables.BigLifePotion;
-import mobs.Dragon;
-import mobs.Goblin;
-import mobs.Sorcerer;
-import stuff.Fireball;
-import stuff.Lightning;
-import stuff.Mace;
-import stuff.Sword;
-
+import consumables.*;
+import mobs.*;
+import stuff.*;
 
 import java.util.ArrayList;
 
+/**
+ * <b>Le plateau de jeu</b>
+ * <p>
+ *     Classe qui construit le plateau de jeu au moyen d'une variable de type ArrayList
+ * </p>
+ * @see Square
+ * @see Potion
+ * @see Weapon
+ * @see Spell
+ * @see Ennemy
+ * @see EmptySquare
+ *
+ * @author Sarah-Hans
+ */
 public class Board {
 
+    /**
+     * Variable gameBoard de type ArrayList qui est le plateau de jeu
+     * @see Square
+     */
     private ArrayList<Square> gameBoard; // plateau de jeu
 
+    /**
+     * <b>Constructeur du Board</b>>
+     * <p>
+     *     On popule le tableau en remplissant les cases en fonction de leur index
+     *     On rend le contenu des case aléatoire ensuite, le shuffle va mélanger les cases.
+     * </p>
+     * @param gameboard
+     *              Le  plateau de jeu
+     *
+     * @see Square
+     * @see Square
+     * @see Potion
+     * @see Weapon
+     * @see Spell
+     * @see Ennemy
+     * @see EmptySquare
+     */
     public Board(ArrayList<Square> gameboard) {
         gameBoard = new ArrayList<Square>();
         for(int i=0; i<65; i++) {
@@ -54,10 +82,18 @@ public class Board {
         Collections.shuffle(this.gameBoard);
     }
 
+    /**
+     *
+     * @return le plateau de jeu qui est une ArrayList
+     */
     public ArrayList<Square> getGameBoard() {
         return gameBoard;
     }
 
+    /**
+     * Met à jour le plateau de jeu
+     * @param gameBoard
+     */
     public void setGameBoard(ArrayList<Square> gameBoard) {
         this.gameBoard = gameBoard;
     }
