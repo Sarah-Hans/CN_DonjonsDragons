@@ -14,11 +14,12 @@ public abstract class Spell extends Square {
         this.atkLvl = atkLvl;
     }
 
-    public void action(Character player) {
+    public String interaction(Character player) {
         if (player instanceof Warrior) {
-            System.out.println("Il y a un sort mais tu n'as pas le droit de l'équiper.");
+            return "Il y a un sort mais tu n'as pas le droit de l'équiper.";
         } else {
             player.setAttack(player.getAttack()+ atkLvl);
+            return "Tu récupères le sort "+ this.getName()+" et tu augmentes ton attaque de "+ this.getAtkLvl()+" points. Ton attaque est maintenant de : "+player.getAttack();
         }
     }
 

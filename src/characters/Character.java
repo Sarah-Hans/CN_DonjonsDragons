@@ -8,11 +8,20 @@ public abstract class Character extends Square {
     protected int life;
     protected int attack;
 
+    /**
+     * La position actuelle du joueur de type int qui est aussi l'index de l'ArrayList board
+     * @see Character(String, int, int, int)
+     * @see Character#getCasePlayer()
+     * @see Character#setCasePlayer(int)
+     */
+    protected int casePlayer;
 
-    public Character(String name, int life, int attack) {
+
+    public Character(String name, int life, int attack, int casePlayer) {
         this.name = name;
         this.life = life;
         this.attack = attack;
+        this.casePlayer = casePlayer;
     }
 
     public void goFight(Character player, Ennemy mob) {
@@ -23,6 +32,13 @@ public abstract class Character extends Square {
         } else {
             System.out.println("Tu as frappé "+mob.getName()+", il lui reste "+ mob.getLife()+" points de vie.");
         }
+    }
+
+    public void goBack(int casePlayer) {
+        Dice lanceDe = new Dice();
+        int chiffreDe = lanceDe.lancerDe();
+        System.out.println("Tu as obtenu : "+chiffreDe);
+        this.casePlayer = casePlayer - chiffreDe;
     }
 
     public String getName() {
@@ -49,12 +65,21 @@ public abstract class Character extends Square {
         this.attack = attack;
     }
 
+    public int getCasePlayer() {
+        return casePlayer;
+    }
+
+    public void setCasePlayer(int casePlayer) {
+        this.casePlayer = casePlayer;
+    }
+
     @Override
     public String toString() {
-        return "Personnage{" +
+        return "Character{" +
                 "name='" + name + '\'' +
                 ", life=" + life +
                 ", attack=" + attack +
+                ", casePlayer=" + casePlayer +
                 '}';
     }
 }

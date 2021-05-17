@@ -7,9 +7,15 @@ public class Wizzard extends Character {
 	private Spell spell;
 	
 	public Wizzard(String name) {
-		super(name, 3, 8);
+		super(name, 3, 8, 0);
 		spell = null;
 	}
+
+	@Override
+	public String interaction(Character player1) {
+		return null;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -44,7 +50,12 @@ public class Wizzard extends Character {
 
 	@Override
 	public String toString() {
-		return "Votre Magicien : [name=" + name + ", life=" + life + ", attack=" + attack + "]";
+		return "Wizzard{" +
+				"name='" + name + '\'' +
+				", life=" + life +
+				", attack=" + attack +
+				", casePlayer=" + casePlayer +
+				", spell=" + spell +
+				'}';
 	}
-
 }

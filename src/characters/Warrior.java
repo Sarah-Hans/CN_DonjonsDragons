@@ -8,8 +8,13 @@ public class Warrior extends Character {
 	private Weapon weapon;
 
 	public Warrior(String name) {
-		super(name, 5, 5);
+		super(name, 5, 5, 0);
 		weapon = null;
+	}
+
+	@Override
+	public String interaction(Character player1) {
+		return null;
 	}
 
 	@Override
@@ -29,7 +34,12 @@ public class Warrior extends Character {
 
 	@Override
 	public String toString() {
-		return "Votre Guerrier :[name=" + name + ", life=" + life + ", attack=" + attack + "]";
+		return "Warrior{" +
+				"name='" + name + '\'' +
+				", life=" + life +
+				", attack=" + attack +
+				", casePlayer=" + casePlayer +
+				", weapon=" + weapon +
+				'}';
 	}
-
 }

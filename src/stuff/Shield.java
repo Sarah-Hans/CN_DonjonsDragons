@@ -1,5 +1,6 @@
 package stuff;
 
+import characters.Character;
 import game.Square;
 
 public class Shield extends Square {
@@ -8,6 +9,11 @@ public class Shield extends Square {
 
 	public Shield(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String interaction(Character player1) {
+		return null;
 	}
 
 	public String getName() {

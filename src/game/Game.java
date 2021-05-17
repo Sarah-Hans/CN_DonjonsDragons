@@ -50,13 +50,6 @@ public class Game {
      */
     private ArrayList<Square> board;
 
-    /**
-     * La position actuelle du joueur de type int qui est aussi l'index de l'ArrayList board
-     * @see Game(Character)
-     * @see Game#getCasePlayer1()
-     * @see Game#setCasePlayer1(int)
-     */
-    private int casePlayer1;
 
     /**
      * Le nom du joueur de type String
@@ -129,7 +122,6 @@ public class Game {
      * @see Game#board
      * @see Game#player1
      * @see Game#player1Name
-     * @see Game#casePlayer1
      * @see Game#chiffreDe
      * @see Game#contentSquare
      * @see Game#clavier
@@ -140,7 +132,6 @@ public class Game {
         board = gameBoard.getGameBoard();
         player1 = player;
         player1Name = player.getName();
-        casePlayer1 = 0;
         chiffreDe = 0;
         contentSquare = null;
         this.clavier = new Scanner(System.in);
@@ -165,13 +156,13 @@ public class Game {
         board = gameBoard.getGameBoard();
         contentSquare = board.get(1);
         board.set(1, player1);
-        casePlayer1 = board.indexOf(player1);
-        System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contient "+ contentSquare);
+        player1.setCasePlayer(board.indexOf(player1));
+        System.out.println(player1Name + " tu es sur la case " + (player1.getCasePlayer()) + ". Cette case contient "+ contentSquare);
         whatHappend = contentSquare.interaction(player1);
         System.out.println(whatHappend);
         System.out.println("Lance le dé pour jouer... (tape jouer)");
         choix = clavier.nextLine();
-        while (choix.equals("jouer") && casePlayer1 < 65) {
+        while (choix.equals("jouer") && player1.getCasePlayer() < 65) {
            newTurn();
         }
     }
@@ -194,23 +185,23 @@ public class Game {
         Dice lanceDe = new Dice();
         chiffreDe = lanceDe.lancerDe();
         System.out.println("Tu as obtenu : " + chiffreDe);
-        board.set(casePlayer1, contentSquare);
-        casePlayer1 = casePlayer1 + chiffreDe;
+        board.set(player1.getCasePlayer(), contentSquare);
+        player1.setCasePlayer(player1.getCasePlayer()+chiffreDe);
         try {
-            if (casePlayer1 > 64) {
+            if (player1.getCasePlayer() > 64) {
                 throw new PersonnageHorsPlateauException("Vous avez dépassé le plateau !");
             }
             lancementInteraction();
         } catch (PersonnageHorsPlateauException e) {
             System.out.println(e.getMessage());
-            exceed = casePlayer1 - 64;
-            casePlayer1 = 64 - exceed;
-
+            exceed = player1.getCasePlayer() - 64;
+            player1.setCasePlayer(64 - exceed);
             lancementInteraction();
         }
         System.out.println("Lance le dé pour jouer... (tape jouer)");
         choix = clavier.nextLine();
     }
+
 
     /**
      * <b>Gestion de l'interaction du joueur avec le contenu de la case</b>
@@ -227,13 +218,13 @@ public class Game {
      */
     public void lancementInteraction() {
         String whatHappend;
-        if (casePlayer1 == 64) {
+        if (player1.getCasePlayer() == 64) {
             win();
         }
-        contentSquare = board.get(casePlayer1);
-        System.out.println(player1Name + " tu es sur la case " + (casePlayer1) + ". Cette case contient "+ contentSquare);
+        contentSquare = board.get(player1.getCasePlayer());
+        System.out.println(player1Name + " tu es sur la case " + (player1.getCasePlayer()) + ". Cette case contient "+ contentSquare);
         whatHappend = contentSquare.interaction(player1);
-        board.set(casePlayer1, player1);
+        board.set(player1.getCasePlayer(), player1);
         System.out.println(whatHappend);
     }
 
@@ -295,22 +286,7 @@ public class Game {
     public void setBoard(ArrayList<Square> board) {
         this.board = board;
     }
-
-    /**
-     *
-     * @return la position du joueur
-     */
-    public int getCasePlayer1() {
-        return casePlayer1;
-    }
-
-    /**
-     * Met à jour la position du joueur
-     * @param casePlayer1
-     */
-    public void setCasePlayer1(int casePlayer1) {
-        this.casePlayer1 = casePlayer1;
-    }
+    
 
     /**
      *

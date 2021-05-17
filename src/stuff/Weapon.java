@@ -14,11 +14,12 @@ public abstract class Weapon extends Square {
 		this.atkLvl = atkLvl;
 	}
 
-	public void action(Character player) {
+	public String interaction(Character player) {
 		if (player instanceof Wizzard) {
-			System.out.println("Il y a une masse mais tu n'as pas le droit de l'équiper.");
+			return "Il y a une masse mais tu n'as pas le droit de l'équiper.";
 		} else {
 			player.setAttack(player.getAttack()+ atkLvl);
+			return "Tu récupère l'arme "+this.getName()+" et tu augmentes ton attaque de "+ this.getAtkLvl()+" points. Ton attaque est maintenant de : "+player.getAttack();
 		}
 	}
 

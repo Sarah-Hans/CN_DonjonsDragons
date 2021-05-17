@@ -12,8 +12,9 @@ public abstract class Potion extends Square {
         this.addLife = addLife;
     }
 
-    public void action(Character player) {
+    public String interaction(Character player) {
         player.setLife(player.getLife() + addLife);
+       return "Tu récupères "+((Potion) this).getName()+" et tu gagnes "+((Potion) this).getAddLife()+" points de vie. Ta vie est maintenant de : "+player.getLife();
     }
     public int getAddLife() {
         return addLife;
