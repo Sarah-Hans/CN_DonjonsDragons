@@ -4,6 +4,10 @@ import characters.*;
 import characters.Character;
 import game.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Scanner;
 
 /**
@@ -77,12 +81,17 @@ public class Menu {
 	public void startMenu() {
 		String choixMenu;
 		while(player == null) {
-			System.out.println("Création de ton personnage, tape create");
-			System.out.println("Quitter le jeu, tape exit");
+			System.out.println("1 - Création de ton personnage");
+			System.out.println("2 - Choisis un personnage disponible");
+			System.out.println("3 - Quitter le jeu");
 			choixMenu = clavier.nextLine();
-			if(choixMenu.equals("create")) {
+			if(choixMenu.equals("1")) {
 				player = createPerso();
-			} else if(choixMenu.equals("exit")) {
+			} else if(choixMenu.equals("2")) {
+				System.out.println("Voici les personnages disponibles :");
+				getHeroes();
+				player = pickHero();
+			} else if(choixMenu.equals("3")) {
 				System.out.println("Bye bye");
 				System.exit(0);
 			}
@@ -196,6 +205,7 @@ public class Menu {
 		String choixInfo;
 		System.out.println("1 - Affichez les infos de votre personnage");
 		System.out.println("2 - Modifier le nom de votre personnage");
+		System.out.println("3 - Sauvegarder votre personnage");
 		choixInfo = clavier.nextLine();
 		if (choixInfo.equals("1")) {
 			System.out.println(player1);
@@ -203,7 +213,96 @@ public class Menu {
 			System.out.println("Modifie le nom de ton personnage : ");
 			name = clavier.nextLine();
 			System.out.println(player1);
+		} else if (choixInfo.equals("3")) {
+			try
+			{
+				//étape 1: charger la classe de driver
+				Class.forName("org.postgresql.Driver");
+				//étape 2: créer l'objet de connexion
+				Connection conn = DriverManager.getConnection(
+						"jdbc:postgresql://localhost:5432/donjonsdragons","postgres","123Donjons");
+				//étape 3: créer l'objet statement
+				Statement stmt = conn.createStatement();
+				String nom = player1.getName();
+				int vie = player1.getLife();
+				int atk = player1.getAttack();
+				if (player1 instanceof Wizzard) {
+					int statut = stmt.executeUpdate("INSERT INTO \"Hero\" (\"Type\", \"Nom\", \"NiveauVie\", \"NiveauForce\") "
+							+ "VALUES ('" + "Magicien"+ "', '" + nom + "', '" + vie + "', '" + atk + "')");
+					System.out.println(statut);
+				}
+				if (player1 instanceof Warrior) {
+					int statut = stmt.executeUpdate("INSERT INTO \"Hero\" (\"Type\", \"Nom\", \"NiveauVie\", \"NiveauForce\") "
+							+ "VALUES ('" + "Guerrier"+ "', '" + nom + "', '" + vie + "', '" + atk + "')");
+					System.out.println(statut);
+				}
+
+				//étape 4: exécuter la requête
+
+				conn.close();
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
 		}
+	}
+
+	public void getHeroes() {
+		try
+		{
+			//étape 1: charger la classe de driver
+			Class.forName("org.postgresql.Driver");
+			//étape 2: créer l'objet de connexion
+			Connection conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/donjonsdragons","postgres","123Donjons");
+			//étape 3: créer l'objet statement
+			Statement stmt = conn.createStatement();
+			ResultSet res = stmt.executeQuery("SELECT * FROM \"Hero\"");
+			//étape 4: exécuter la requête
+			while(res.next())
+				System.out.println(res.getInt(1)+"  "+res.getString(2)
+						+"  "+res.getString(3)+"  "+res.getInt(4)+"  "+res.getInt(5)+"  "+
+						res.getString(6)+ "  "+res.getString(7));
+			//étape 5: fermer l'objet de connexion
+			conn.close();
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+	}
+
+	public Character pickHero() {
+		int choix;
+		try
+		{
+			//étape 1: charger la classe de driver
+			Class.forName("org.postgresql.Driver");
+			//étape 2: créer l'objet de connexion
+			Connection conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/donjonsdragons","postgres","123Donjons");
+			//étape 3: créer l'objet statement
+			Statement stmt = conn.createStatement();
+			System.out.println("Choisi un personnage");
+			choix = clavier.nextInt();
+			ResultSet res = stmt.executeQuery("SELECT * FROM \"Hero\" WHERE \"Id\"="+" '"+ choix + "'");
+			res.next();
+			if(res.getString("Type").equals("Magicien")) {
+				player = new Wizzard(name);
+			} else if (res.getString("Type").equals("Guerrier")) {
+				player = new Warrior(name);
+			}
+			player.setName(res.getString("Nom"));
+			player.setLife(res.getInt("NiveauVie"));
+			player.setAttack(res.getInt("NiveauForce"));
+
+			System.out.println("Infos du personnage : "+ player);
+			//étape 5: fermer l'objet de connexion
+			conn.close();
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		return player;
 	}
 	/**
 	 * Retourne le nom du joueur.
