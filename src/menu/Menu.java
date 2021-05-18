@@ -69,14 +69,18 @@ public class Menu {
 	* <p>
 	* Création d'une variable choixMenu qui récupère l'entrée clavier de l'utilisateur.
 	* Tant que le player n'est pas créé on propose de le créer.
-	* Si l'utilisateur choisi de le créer, on appelle la méthode createPerso(), s'il choisi de quitter le jeu, le programme se ferme.
-	* Dès que le personage est créé, on propose de lancer une partie ou de quitter le jeu
+	* Si l'utilisateur choisi de le créer, on appelle la méthode createPerso(),
+	 * s'il choisit de récupérer un personnage existant la liste des persos disponibles s'affiche,
+	 * s'il choisi de quitter le jeu, le programme se ferme.
+	* Dès que le personage est créé ou chargé, on propose de lancer une partie ou de quitter le jeu
 	* Le lancement d'une partie instancie la classe Game et lance la méthode startGame.
 	* </p>
 	* @see Menu#player
 	* @see Menu#createPerso()
 	* @see Game
 	* @see Game#startGame()
+	 * @see Menu#pickHero()
+	 * @see Menu#getHeroes()
 	 */
 	public void startMenu() {
 		String choixMenu;
@@ -91,6 +95,7 @@ public class Menu {
 				System.out.println("Voici les personnages disponibles :");
 				getHeroes();
 				player = pickHero();
+				System.out.println("Personnage sélectionné : "+ player);
 			} else if(choixMenu.equals("3")) {
 				System.out.println("Bye bye");
 				System.exit(0);
@@ -247,6 +252,16 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * <b>Méthode qui affiche les personnages disponibles pour jouer</b>
+	 * <p>
+	 *     On utilise le JDBC avec tout d'abord le chargement de la classe de Driver.
+	 *     Ensuite on crée l'objet de connexion
+	 *     On crée l'objet Statement et on exécute la requête
+	 *     Enfin on ferme l'objet de connexion
+	 * </p>
+	 *
+	 */
 	public void getHeroes() {
 		try
 		{
@@ -271,6 +286,21 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * <b>Méthode qui permet de choisir un personnage disponible</b>
+	 * <p>
+	 *     Chargement de la classe de Driver
+	 *     Création de l'objet de connexion
+	 *     Création de l'objet statement
+	 *     Récupération du personnage en fonction de son id.
+	 *
+	 * </p>
+	 * @return le player
+	 *
+	 * @see Character
+	 * @see Menu#player
+	 *
+	 */
 	public Character pickHero() {
 		int choix;
 		try
@@ -294,8 +324,6 @@ public class Menu {
 			player.setName(res.getString("Nom"));
 			player.setLife(res.getInt("NiveauVie"));
 			player.setAttack(res.getInt("NiveauForce"));
-
-			System.out.println("Infos du personnage : "+ player);
 			//étape 5: fermer l'objet de connexion
 			conn.close();
 		}
