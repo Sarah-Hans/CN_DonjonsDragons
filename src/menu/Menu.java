@@ -4,10 +4,7 @@ import characters.*;
 import characters.Character;
 import game.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 /**
@@ -48,6 +45,8 @@ public class Menu {
 	* La variable qui va permettre les entrées clavier
 	 */
 	private Scanner clavier;
+
+	private Connection conn;
 	
 	/**
 	* Constructeur Menu
@@ -62,6 +61,11 @@ public class Menu {
 		name = null;
 		player = null;
 		this.clavier = new Scanner(System.in);
+		try {
+			conn = DbConnexion.getInstance().getConnexion();
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
 	}
 
 
@@ -224,11 +228,13 @@ public class Menu {
 		} else if (choixInfo.equals("3")) {
 			try
 			{
+				/*
 				//étape 1: charger la classe de driver
 				Class.forName("org.postgresql.Driver");
 				//étape 2: créer l'objet de connexion
 				Connection conn = DriverManager.getConnection(
-						"jdbc:postgresql://localhost:5432/donjonsdragons","postgres","123Donjons");
+						"jdbc:postgresql://localhost:5432/donjonsdragons","postgres","123Donjons");*/
+
 				//étape 3: créer l'objet statement
 				Statement stmt = conn.createStatement();
 				String nom = player1.getName();
@@ -241,8 +247,6 @@ public class Menu {
 				System.out.println(statut);
 
 				//étape 4: exécuter la requête
-
-				conn.close();
 			}
 			catch(Exception e){
 				System.out.println(e);
@@ -263,11 +267,13 @@ public class Menu {
 	public void getHeroes() {
 		try
 		{
+			/*
 			//étape 1: charger la classe de driver
 			Class.forName("org.postgresql.Driver");
 			//étape 2: créer l'objet de connexion
 			Connection conn = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/donjonsdragons","postgres","123Donjons");
+					"jdbc:postgresql://localhost:5432/donjonsdragons","postgres","123Donjons");*/
+
 			//étape 3: créer l'objet statement
 			Statement stmt = conn.createStatement();
 			ResultSet res = stmt.executeQuery("SELECT * FROM \"Hero\"");
@@ -276,8 +282,6 @@ public class Menu {
 				System.out.println(res.getInt(1)+"  "+res.getString(2)
 						+"  "+res.getString(3)+"  "+res.getInt(4)+"  "+res.getInt(5)+"  "+
 						res.getString(6)+ "  "+res.getString(7)+ "  "+res.getInt(8));
-			//étape 5: fermer l'objet de connexion
-			conn.close();
 		}
 		catch(Exception e){
 			System.out.println(e);
@@ -301,14 +305,10 @@ public class Menu {
 	 */
 	public Character pickHero() {
 		int choix;
+
 		try
 		{
-			//étape 1: charger la classe de driver
-			Class.forName("org.postgresql.Driver");
-			//étape 2: créer l'objet de connexion
-			Connection conn = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/donjonsdragons","postgres","123Donjons");
-			//étape 3: créer l'objet statement
+			//Création de l'objet Statement
 			Statement stmt = conn.createStatement();
 			System.out.println("Choisi un personnage");
 			choix = clavier.nextInt();
@@ -316,17 +316,16 @@ public class Menu {
 			ResultSet res = stmt.executeQuery("SELECT * FROM \"Hero\" WHERE \"Id\"="+" '"+ choix + "'");
 			res.next();
 			// récupérer type wizzard ou warrior, utiliser reflect
-			if(res.getString("Type").equals("Magicien")) {
+			if(res.getString("Type").equals("Magicien") || res.getString("Type").equals("Wizzard")) {
 				player = new Wizzard(name);
-			} else if (res.getString("Type").equals("Guerrier")) {
+			} else if (res.getString("Type").equals("Guerrier") || res.getString("Type").equals("Warrior")) {
 				player = new Warrior(name);
 			}
 			player.setName(res.getString("Nom"));
 			player.setLife(res.getInt("NiveauVie"));
 			player.setAttack(res.getInt("NiveauForce"));
 			player.setCasePlayer(res.getInt("Position"));
-			//étape 5: fermer l'objet de connexion
-			conn.close();
+
 		}
 		catch(Exception e){
 			System.out.println(e);
@@ -367,6 +366,14 @@ public class Menu {
 		this.name = name;
 	}
 
+	public Connection getConn() {
+		return conn;
+	}
+
+	public void setConn(Connection conn) {
+		this.conn = conn;
+	}
+
 	/**
 	 * Méthode qui transforme l'objet menu en String
 	 *
@@ -375,9 +382,10 @@ public class Menu {
 	@Override
 	public String toString() {
 		return "Menu{" +
-				"name='" + name + '\'' +
+				"player=" + player +
+				", name='" + name + '\'' +
 				", clavier=" + clavier +
-				", player=" + player +
+				", conn=" + conn +
 				'}';
 	}
 }
