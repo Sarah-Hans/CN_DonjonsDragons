@@ -2,7 +2,14 @@ package stuff;
 
 import game.Square;
 
-public abstract class AttackItem extends Square {
+/**
+ * Classe qui va gérer les items d'attaque (spells et weapon)
+ *
+ * @see Weapon
+ * @see Spell
+ * @see Square
+ */
+public abstract class AttackItem implements Square {
 
     /**
      * Nom de l'arme
@@ -22,23 +29,47 @@ public abstract class AttackItem extends Square {
      */
     protected int atkLvl;
 
+    /**
+     * Constructeur de l'AttackItem
+     *
+     * @param name
+     *          Le nom de l'item d'attaque
+     * @param atkLvl
+     *          Le niveau d'attaque de l'item
+     */
     public AttackItem(String name, int atkLvl) {
         this.name = name;
         this.atkLvl = atkLvl;
     }
 
+    /**
+     *
+     * @return le nom de l'arme
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Met à jour le nom de l'arme
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return le niveau d'attaque de l'arme
+     */
     public int getAtkLvl() {
         return atkLvl;
     }
 
+    /**
+     * Met à jour le niveau d'attaque de l'arme
+     * @param atkLvl
+     */
     public void setAtkLvl(int atkLvl) {
         this.atkLvl = atkLvl;
     }

@@ -64,6 +64,9 @@ public class Menu {
 		this.clavier = new Scanner(System.in);
 	}
 
+
+
+
 	/**
 	* <b>Menu de départ</b>
 	* <p>
@@ -229,18 +232,13 @@ public class Menu {
 				//étape 3: créer l'objet statement
 				Statement stmt = conn.createStatement();
 				String nom = player1.getName();
+				String classe = player1.getClassName();
 				int vie = player1.getLife();
 				int atk = player1.getAttack();
-				if (player1 instanceof Wizzard) {
-					int statut = stmt.executeUpdate("INSERT INTO \"Hero\" (\"Type\", \"Nom\", \"NiveauVie\", \"NiveauForce\") "
-							+ "VALUES ('" + "Magicien"+ "', '" + nom + "', '" + vie + "', '" + atk + "')");
-					System.out.println(statut);
-				}
-				if (player1 instanceof Warrior) {
-					int statut = stmt.executeUpdate("INSERT INTO \"Hero\" (\"Type\", \"Nom\", \"NiveauVie\", \"NiveauForce\") "
-							+ "VALUES ('" + "Guerrier"+ "', '" + nom + "', '" + vie + "', '" + atk + "')");
-					System.out.println(statut);
-				}
+				// player.getClassName pour ne pas avoir de if
+				int statut = stmt.executeUpdate("INSERT INTO \"Hero\" (\"Type\", \"Nom\", \"NiveauVie\", \"NiveauForce\") "
+						+ "VALUES ('" + classe + "', '" + nom + "', '" + vie + "', '" + atk + "')");
+				System.out.println(statut);
 
 				//étape 4: exécuter la requête
 
@@ -277,7 +275,7 @@ public class Menu {
 			while(res.next())
 				System.out.println(res.getInt(1)+"  "+res.getString(2)
 						+"  "+res.getString(3)+"  "+res.getInt(4)+"  "+res.getInt(5)+"  "+
-						res.getString(6)+ "  "+res.getString(7));
+						res.getString(6)+ "  "+res.getString(7)+ "  "+res.getInt(8));
 			//étape 5: fermer l'objet de connexion
 			conn.close();
 		}
@@ -314,8 +312,10 @@ public class Menu {
 			Statement stmt = conn.createStatement();
 			System.out.println("Choisi un personnage");
 			choix = clavier.nextInt();
+			clavier.nextLine();
 			ResultSet res = stmt.executeQuery("SELECT * FROM \"Hero\" WHERE \"Id\"="+" '"+ choix + "'");
 			res.next();
+			// récupérer type wizzard ou warrior, utiliser reflect
 			if(res.getString("Type").equals("Magicien")) {
 				player = new Wizzard(name);
 			} else if (res.getString("Type").equals("Guerrier")) {
@@ -324,6 +324,7 @@ public class Menu {
 			player.setName(res.getString("Nom"));
 			player.setLife(res.getInt("NiveauVie"));
 			player.setAttack(res.getInt("NiveauForce"));
+			player.setCasePlayer(res.getInt("Position"));
 			//étape 5: fermer l'objet de connexion
 			conn.close();
 		}
@@ -332,6 +333,7 @@ public class Menu {
 		}
 		return player;
 	}
+
 	/**
 	 * Retourne le nom du joueur.
 	 *

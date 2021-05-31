@@ -2,6 +2,7 @@ package characters;
 
 import game.*;
 import mobs.*;
+import stuff.AttackItem;
 
 /**
  * <b>Gestion du joueur avec ses attributs et ses méthodes</b>
@@ -15,7 +16,7 @@ import mobs.*;
  *
  * @author Sarah-Hans
  */
-public abstract class Character extends Square {
+public abstract class Character implements Square {
 
     /**
      * Le nom du joueur de type String
@@ -25,6 +26,8 @@ public abstract class Character extends Square {
      * @see Character#setName(String)
      */
     protected String name;
+
+    protected String className;
 
     /**
      * Le nombre de points de vie
@@ -50,6 +53,8 @@ public abstract class Character extends Square {
      */
     protected int casePlayer;
 
+    protected AttackItem attackItem;
+
     /**
      * Constructeur qui permet d'initialiser les attributs ci-dessus
      *
@@ -66,11 +71,13 @@ public abstract class Character extends Square {
      *          Les points d'attaque du joueur en fonction de sa classe (guerrier ou magicien)
      * @param casePlayer
      */
-    public Character(String name, int life, int attack, int casePlayer) {
+    public Character(String name, String className, int life, int attack, int casePlayer, AttackItem attackItem) {
         this.name = name;
+        this.className = className;
         this.life = life;
         this.attack = attack;
         this.casePlayer = casePlayer;
+        this.attackItem = attackItem;
     }
 
     /**
@@ -107,6 +114,9 @@ public abstract class Character extends Square {
         int chiffreDe = lanceDe.lancerDe();
         System.out.println("Tu as obtenu : "+chiffreDe);
         this.casePlayer = casePlayer - chiffreDe;
+        if (this.casePlayer < 1) {
+            this.casePlayer = 1;
+        }
     }
 
     /**
@@ -115,6 +125,14 @@ public abstract class Character extends Square {
      */
     public String getName() {
         return name;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public AttackItem getAttackItem() {
+        return attackItem;
     }
 
     /**

@@ -1,7 +1,5 @@
 package characters;
 
-import stuff.Weapon;
-
 /**
  * <b>Classe héritée de Character</b>
  * <p>
@@ -16,20 +14,13 @@ import stuff.Weapon;
 public class Warrior extends Character {
 
 	/**
-	 * Arme du warrior
-	 * De type objet Weapon
-	 */
-	private Weapon weapon;
-
-	/**
 	 * Constructeur du Warrior
 	 * On récupère le nom du joueur et on initialise la vie à 5, l'attaque à 5 et la position à 0
 	 * @param name
 	 * 		Le nom du joueur
 	 */
 	public Warrior(String name) {
-		super(name, 5, 5, 0);
-		weapon = null;
+		super(name, "Warrior",5, 5, 0, null) ;
 	}
 
 	/**
@@ -75,10 +66,11 @@ public class Warrior extends Character {
 	public String toString() {
 		return "Warrior{" +
 				"name='" + name + '\'' +
+				", className='" + className + '\'' +
 				", life=" + life +
 				", attack=" + attack +
 				", casePlayer=" + casePlayer +
-				", weapon=" + weapon +
+				", attackItem=" + attackItem +
 				'}';
 	}
 }

@@ -3,7 +3,7 @@ package stuff;
 import characters.Character;
 import game.Square;
 
-public class Shield extends Square {
+public class Shield implements Square {
 
 	private String name;
 

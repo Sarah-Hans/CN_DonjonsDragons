@@ -11,7 +11,7 @@ import game.Square;
  *
  * @author Sarah-Hans
  */
-public abstract class Potion extends Square {
+public abstract class Potion implements Square {
     /**
      * Variable addLife de type entier
      * Elle définit le nombre de pv ajoutés par la potion

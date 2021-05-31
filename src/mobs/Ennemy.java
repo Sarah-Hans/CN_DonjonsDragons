@@ -12,7 +12,7 @@ import java.util.Scanner;
  *
  * @author Sarah-Hans
  */
-public abstract class Ennemy extends Square {
+public abstract class Ennemy implements Square {
 
     /**
      * Le nom de l'ennemi

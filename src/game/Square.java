@@ -10,7 +10,7 @@ import characters.Character;
  *
  * @author Sarah-Hans
  */
-public abstract class Square {
+public interface Square {
     /**
      * Méthode interaction qui va gérer l'interaction du joueur avec le contenu de chaque case du plateau de jeu
      * @param player1
@@ -18,5 +18,5 @@ public abstract class Square {
      * @return une chaine de caractères
      */
     // Méthode qui va gérer les interactions du player avec le contenu des cases du jeu
-    public abstract String interaction(Character player1);
+    String interaction(Character player1);
 }

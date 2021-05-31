@@ -15,20 +15,13 @@ import stuff.Spell;
 public class Wizzard extends Character {
 
 	/**
-	 * Arme du wizzard
-	 * De type objet Spell
-	 */
-	private Spell spell;
-
-	/**
 	 * Constructeur du Wizzard
 	 * On récupère le nom du joueur et on initialise la vie à 3, l'attaque à 8 et la position à 0
 	 * @param name
 	 * 		Le nom du joueur
 	 */
 	public Wizzard(String name) {
-		super(name, 3, 8, 0);
-		spell = null;
+		super(name, "Wizzard",3, 8, 0, null);
 	}
 
 	/**
@@ -74,10 +67,11 @@ public class Wizzard extends Character {
 	public String toString() {
 		return "Wizzard{" +
 				"name='" + name + '\'' +
+				", className='" + className + '\'' +
 				", life=" + life +
 				", attack=" + attack +
 				", casePlayer=" + casePlayer +
-				", spell=" + spell +
+				", attackItem=" + attackItem +
 				'}';
 	}
 }

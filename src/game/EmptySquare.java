@@ -11,7 +11,7 @@ import characters.Character;
  *
  * @author Sarah-Hans
  */
-public class EmptySquare extends Square {
+public class EmptySquare implements Square {
 
     /**
      * Variable qui représente le nom de la case

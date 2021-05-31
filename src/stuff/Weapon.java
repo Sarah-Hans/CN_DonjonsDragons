@@ -4,10 +4,11 @@ import characters.Character;
 import characters.Wizzard;
 
 /**
- * Classe abstraite qui hérite de la classe Square
+ * Classe abstraite qui hérite de la classe AttackItem
  * Caractérisée par les attributs name et atklvl
  * Méthode interaction qui permettra de la faire interagir avec le joueur
  *
+ * @see AttackItem
  * @see Character
  * @see Wizzard
  * @see characters.Warrior
@@ -35,7 +36,7 @@ public abstract class Weapon extends AttackItem {
 	 */
 	public String interaction(Character player) {
 		if (player instanceof Wizzard) {
-			return "Il y a une masse mais tu n'as pas le droit de l'équiper.";
+			return "Il y a une arme mais tu n'as pas le droit de l'équiper.";
 		} else {
 			player.setAttack(player.getAttack()+ atkLvl);
 			return "Tu récupère l'arme "+this.getName()+" et tu augmentes ton attaque de "+ this.getAtkLvl()+" points. Ton attaque est maintenant de : "+player.getAttack();

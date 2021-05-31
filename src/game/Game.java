@@ -4,6 +4,9 @@ import exceptions.PersonnageHorsPlateauException;
 import menu.Menu;
 import characters.Character;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -152,18 +155,58 @@ public class Game {
      */
     public void startGame()  {
         String whatHappend;
+        int position;
         System.out.println("C'est parti !");
         board = gameBoard.getGameBoard();
-        contentSquare = board.get(1);
-        board.set(1, player1);
-        player1.setCasePlayer(board.indexOf(player1));
+        position = player1.getCasePlayer();
+        if (position == 0) {
+            contentSquare = board.get(1);
+            board.set(1, player1);
+            player1.setCasePlayer(board.indexOf(player1));
+        } else if (position > 0) {
+            contentSquare = board.get(position);
+            board.set(position, player1);
+            player1.setCasePlayer(board.indexOf(player1));
+        }
+
         System.out.println(player1Name + " tu es sur la case " + (player1.getCasePlayer()) + ". Cette case contient "+ contentSquare);
         whatHappend = contentSquare.interaction(player1);
         System.out.println(whatHappend);
-        System.out.println("Lance le dé pour jouer... (tape jouer)");
+        System.out.println("Lance le dé pour jouer... (tape jouer). Ou tape save pour sauvegarder ton personnage et quitter le jeu.");
         choix = clavier.nextLine();
         while (choix.equals("jouer") && player1.getCasePlayer() < 65) {
            newTurn();
+        }
+        if (choix.equals("save")) {
+            try
+            {
+                //étape 1: charger la classe de driver
+                Class.forName("org.postgresql.Driver");
+                //étape 2: créer l'objet de connexion
+                Connection conn = DriverManager.getConnection(
+                        "jdbc:postgresql://localhost:5432/donjonsdragons","postgres","123Donjons");
+                //étape 3: créer l'objet statement
+                Statement stmt = conn.createStatement();
+                String nom = player1.getName();
+                int vie = player1.getLife();
+                int atk = player1.getAttack();
+                int pos = player1.getCasePlayer();
+                int statut = stmt.executeUpdate("UPDATE \"Hero\" SET \"NiveauVie\" = "+"'"+vie+"', " +
+                        "\"NiveauForce\" = "+"'"+atk+"', " +
+                        "\"Position\" = "+"'"+pos+"'" +
+                        "WHERE \"Nom\" = "+"'"+nom+"'");
+                System.out.println(statut);
+                System.out.println("Votre personnage a été sauvegardé");
+
+                //étape 4: exécuter la requête
+
+                conn.close();
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+            System.out.println("Bye bye");
+            System.exit(0);
         }
     }
 
@@ -191,14 +234,14 @@ public class Game {
             if (player1.getCasePlayer() > 64) {
                 throw new PersonnageHorsPlateauException("Vous avez dépassé le plateau !");
             }
-            lancementInteraction();
         } catch (PersonnageHorsPlateauException e) {
             System.out.println(e.getMessage());
             exceed = player1.getCasePlayer() - 64;
             player1.setCasePlayer(64 - exceed);
-            lancementInteraction();
+
         }
-        System.out.println("Lance le dé pour jouer... (tape jouer)");
+        lancementInteraction();
+        System.out.println("Lance le dé pour jouer... (tape jouer). Ou tape save pour sauvegarder ton personnage et quitter le jeu.");
         choix = clavier.nextLine();
     }
 
